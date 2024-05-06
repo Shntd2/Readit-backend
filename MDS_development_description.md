@@ -13,10 +13,10 @@
 	* What is it for
 	* What are its benefits
 	* It is very important to convey information to the user that messages with summaries will be sent to email address which will be mentioned in registration
-1. Feedback section
+2. Feedback section
 	* Here users will be able to send comments and suggestions about the project 
-2. Login page
-	* This page is crucial because without login user wont be able to use the app
+3. Login page
+	* This page is crucial because without login user won't be able to use the app
 	* It is very important to convey information to the user that messages with summaries will be sent to users email address which will be mentioned in registration
 	* Implement sign in and sign up logic in `login.py` file
 		* `login.py` must be connected directly to `models.py`
@@ -26,7 +26,7 @@
 				* First opens sign in page
 				* In sign in page must be button redirecting to sign up page
 			* Create client-side and server-side data validation system in sign in and in sign up logic
-			* If user chooses direct registration without connecting to existiong Google account:
+			* If user chooses direct registration without connecting to existing Google account:
 				* He will need to enter his:
 				* Name (variable)
 					* Forbid signs usage besides the hyphen
@@ -42,9 +42,9 @@
 					* If they're mismatched, output that info correctly in frontend 
 				* Create account button
 					* It will redirect user to page with info about next registration step: email verification
-					* After sign up he should end registration process by openning special link which app will send to a users email mentioned in registration
+					* After sign up he should end registration process by opening special link which app will send to a users email mentioned in registration
 					* Link will provide user to sign in page where he will enter his username and password 
-		* Add abillity to login via Google account 
+		* Add ability to login via Google account 
 	* Implement password recovery logic in sign in page
 		* Here user will enter his email by which he was registered
 		* Then login page in connection with `models.py` will look for that email in registered users table from database 
@@ -65,7 +65,7 @@
 	* After that in `send_summary_via_email` function specify `recipient` variable which consists of users email from users database (via `models.py`)
 	* Add to `pdf_summary.py` function that will send all chunks of uploaded PDF to `ai_summarizer` for further processing
 * `ai_summarizer.py` will create summary based on every JSON chunk of uploaded PDF, where every JSON chunk will be provided with universal prompt to make summary of provided part of PDF
-	* `ai_summarizer.py` should generate summaries to all chunks of uploaded PDF and store them seperately preliminarily in NoSQL database
+	* `ai_summarizer.py` should generate summaries to all chunks of uploaded PDF and store them separately preliminarily in NoSQL database
 	* Summaries must be connected to each other in chronological order and tagged by the uploaded PDF file name, unique id and username 
 * `ai_summarizer.py` will send summaries of one PDF file in chronological order to `email_service.py` 
 	* This addon should be implemented in `send_summary_via_email` function
@@ -73,7 +73,7 @@
 ## Modify `pdf_summary.py` 
 * Unify JSON chunks formatting to make them easy for the reader to perceive
 	* Try to use Unstructured.io for that task
-	* Make it ignore non-relevant data: annotations, tables of contents, gratitudes and etc. 
+	* Make it ignore non-relevant data: annotations, tables of contents, gratitude's and etc. 
 		* Think about keywords usage, but also search for other methods 
     * In `pdf_summary.py` in this line must be located recipients email `status_code, response_message = send_summary_via_email(summary_chunks, 'recipients@mail.com')`. Implement here `recipient` variable with usernames email from users database
 ## Modify `routes.py`
