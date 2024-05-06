@@ -1,7 +1,7 @@
 class Config(object):
 	DEBUG = False
 	TESTING = False
-	SECRET_KEY = ''
+	SECRET_KEY = '...'
 	ALLOWED_EXTENSIONS = {'pdf', 'docx', 'epub'}
 	MAX_CONTENT_LENGTH = 25 * 1000 * 1000
 
