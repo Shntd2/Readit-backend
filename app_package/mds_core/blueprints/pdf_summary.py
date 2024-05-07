@@ -58,16 +58,3 @@ def generate_summary():
 		})
 	except Exception as e:
 		return jsonify({'error': str(e), 'code': 500}), 500
-
-# This function was used to send raw chunks of uploaded PDF file directly to recipient
-# Now is needed to move this function. Destination yet is unidentified
-# def send_summary_via_email(summary_chunks, recipient):
-# 	"""Creates package with chunk and sends to email_service.py"""
-# 	url = 'http://localhost:5000/sending_email'
-# 	data = {
-# 		'summary': ' '.join(summary_chunks),
-# 		'recipient': recipient,
-# 		'chunk_number': 1
-# 	}
-# 	response = requests.post(url, json=data)
-# 	return response.status_code, response.text
