@@ -19,6 +19,9 @@
 	* This page is crucial because without login user won't be able to use the app
 	* It is very important to convey information to the user that messages with summaries will be sent to users email address which will be mentioned in registration
 	* Implement sign in and sign up logic in `login.py` file
+		* Add function to `login.py` that will handle users sessions and setting cookies
+			* Find a way not to store sensitive and session data in apps environment
+			* Think about AWS S3 bucket 
 		* `login.py` must be connected directly to `models.py`
 			* To check for existing users username/email and password in the database for login
 			* To add new users username, email and password for sign up 
