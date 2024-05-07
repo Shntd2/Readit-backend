@@ -7,7 +7,8 @@
 	* Add the actual URI of new database
 * Presumably create two databases:
 	* MySQL database where will be stored users data for login (sign in, sign out, change password if forgotten) logic 
-	* NoSQL database for storing in certain order summaries of uploaded PDFs chunks 
+	* NoSQL (maybe MongoDB) database for storing in certain order summaries of uploaded PDFs chunks
+	 * After sending last summary of uploaded PDF file that summaries chain must be automatically deleted from database    
 ## Use `main_page.py` file as a welcome page. It will contain
 1. Description of the app
 	* What is it for
@@ -82,6 +83,9 @@
 ## Modify `routes.py`
 * The `allowed_file` function only checks the file extension. Implement additional validation to ensure uploaded files are actually the intended file types and not malicious files
 * `upload_file` function defines path where uploaded PDF files get stored. Change it to the server path, now it is local path `file_path = os.path.join(DevelopmentConfig.UPLOAD_FOLDER, secure_filename(file.filename))`
+## Additional API's integration
+* [Abstract Email Validation](https://www.abstractapi.com/api/email-verification-validation-api) - validates email addresses for deliverability and spam
+* Presumably [Warrant](https://warrant.dev/) - APIs for authorization and access control. Use as a backup option, better create it by yourself
 ## Mailing Integration
 * Set up an email service provider (e.g., Gmail, SendGrid) for sending emails programmatically
 * Configure SMTP settings in web application to enable email sending
@@ -92,7 +96,7 @@
 * Test the web application thoroughly, including file uploads, text summarization, email sending, and scheduled tasks
 * Perform both functional and usability testing to ensure a smooth user experience
 ## Deploy web application to a hosting platform
-* Choose a hosting provider for deploying your web application (e.g., Heroku, AWS, DigitalOcean)
+* Choose a hosting provider for deploying web application (e.g., AWS, Heroku, DigitalOcean)
 * Configure the deployment environment and deploy application
 ## Monitoring and Maintenance
 * Implement logging and monitoring solutions to track application performance and errors
