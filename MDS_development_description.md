@@ -89,9 +89,9 @@
 * Presumably [Warrant](https://warrant.dev/) - APIs for authorization and access control. Use as a backup option, better create it by yourself
 ## Mailing Integration
 * Set up an email service provider (e.g., Gmail, SendGrid) for sending emails programmatically
-* Configure SMTP settings in web application to enable email sending
-* Create email templates for sending abbreviated chapters
-* Configure daily email sending
+* Configure SMTP settings in web application to enable email sending - DONE
+* Create email templates for sending abbreviated chapters - DONE
+* Configure email sending by schedule
 	* Implement a scheduler (e.g. cron job, Celery) to send emails daily
 ## Intermediate testing
 * Test the web application thoroughly, including file uploads, text summarization, email sending, and scheduled tasks
