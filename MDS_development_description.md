@@ -97,6 +97,7 @@
 * Test the web application thoroughly, including file uploads, text summarization, email sending, and scheduled tasks
 * Perform both functional and usability testing to ensure a smooth user experience
 ## Deploy web application to a hosting platform
+* Buy a domain name 
 * Choose a hosting provider for deploying web application (e.g. AWS, Heroku, DigitalOcean)
 * Configure the deployment environment and deploy application
 ## Monitoring and Maintenance
