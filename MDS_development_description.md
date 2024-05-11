@@ -1,12 +1,12 @@
 # Projects development sequence
 ## Use `models.py` file to manage direct interactions with the database 
-* Preliminarily provide connection to MySQL server using SQLAlchemy
+* Preliminarily provide connection to PostgreSQL server using SQLAlchemy
 	* Classes here (Models) will represent database tables
 	* Every column of that database tables will have its variable
-* Add actual values to `SQLALCHEMY_DATABASE_URI = 'mysql:///data.db'` variable of `DevelopmentConfig` and `ProductionConfig` classes from `config.py` file
+* Add actual values to `SQLALCHEMY_DATABASE_URI = 'postgresql:///data.db'` variable of `DevelopmentConfig` and `ProductionConfig` classes from `config.py` file
 	* Add the actual URI of new database
 * Presumably create two databases:
-	* MySQL database where will be stored users data for login (sign in, sign out, change password if forgotten) logic 
+	* PostgreSQL database where will be stored users data for login (sign in, sign out, change password if forgotten) logic
 	* NoSQL (maybe MongoDB) database for storing in certain order summaries of uploaded PDFs chunks
 	 * After sending last summary of uploaded PDF file that summaries chain must be automatically deleted from database    
 ## Use `main_page.py` file as a welcome page. It will contain
