@@ -1,3 +1,7 @@
+"""
+This utility provides a route to display specific configuration settings of the application
+"""
+
 from flask import Blueprint, current_app
 
 config_switcher = Blueprint('config_switcher', __name__, url_prefix='/config')

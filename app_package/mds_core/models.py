@@ -1,3 +1,7 @@
+"""
+This utility will handle connection with databases using SQLAlchemy
+"""
+
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()

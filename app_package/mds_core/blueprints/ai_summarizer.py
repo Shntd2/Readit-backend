@@ -1,3 +1,8 @@
+"""
+This utility will send JSON chunks of uploaded PDF from MongoDB to AI API
+Is under development
+"""
+
 from flask import Blueprint, request, jsonify, session
 import requests
 from app_package.mds_core.models import db, AIResponse
