@@ -1,5 +1,7 @@
 # Projects development sequence
+
 ## Use `models.py` file to manage direct interactions with the database 
+
 * Preliminarily provide connection to PostgreSQL server using SQLAlchemy
 	* Classes here (Models) will represent database tables
 	* Every column of that database tables will have its variable
@@ -9,7 +11,9 @@
 	* PostgreSQL database where will be stored users data for login (sign in, sign out, change password if forgotten) logic
 	* NoSQL (maybe MongoDB) database for storing in certain order summaries of uploaded PDFs chunks
 	 * After sending last summary of uploaded PDF file that summaries chain must be automatically deleted from database    
+
 ## Use `main_page.py` file as a welcome page. It will contain
+
 1. Description of the app
 	* What is it for
 	* What are its benefits
@@ -60,7 +64,9 @@
 				* If they're mismatched, output that info correctly in frontend
 			* If entered email is not in registered users table
 				* Output message in front that user with such email is not registered in the application 
+
 ## Create `personal_page.py` file as personal page of the user
+
 * Here frontend must contain active subscriptions list
 * And Create new subscription button which should redirect to `routes.py` - page where user can upload its PDF file
 	* After creating users session, its email address from `models.py` must be used in backend. So it is needed to connect `personal_page.py` with `models.py` and assign users email received from users database to variable `recipient` 
@@ -75,35 +81,53 @@
 * `ai_summarizer.py` will send summaries of one PDF file in chronological order to `email_service.py`
 	* This addon should be implemented in `send_summary_via_email` function
 * `email_service.py` will send summaries to recipient as `ai_summarizer.py` will provide them. It means that `ai_summarizer.py` will send summaries to `email_service.py` according to the schedule. `email_service.py` functionality will be simple: it gets message from `ai_summarizer.py` and sends it to recipient - one by one
+
 ## Modify `pdf_summary.py` 
+
 * Unify JSON chunks formatting to make them easy for the reader to perceive
 	* Try to use Unstructured.io for that task
 	* Make it ignore non-relevant data: annotations, tables of contents, gratitude's and etc. 
 		* Think about keywords usage, but also search for other methods 
     * In `pdf_summary.py` in this line must be located recipients email `status_code, response_message = send_summary_via_email(summary_chunks, 'recipients@mail.com')`. Implement here `recipient` variable with usernames email from users database
+
 ## Modify `routes.py`
+
 * The `allowed_file` function only checks the file extension. Implement additional validation to ensure uploaded files are actually the intended file types and not malicious files
 * `upload_file` function defines path where uploaded PDF files get stored. Change it to the server path, now it is local path `file_path = os.path.join(DevelopmentConfig.UPLOAD_FOLDER, secure_filename(file.filename))`
+
 ## Additional API's integration
+
 * [Abstract Email Validation](https://www.abstractapi.com/api/email-verification-validation-api) - validates email addresses for deliverability and spam
 * Presumably [Warrant](https://warrant.dev/) - APIs for authorization and access control. Use as a backup option, better create it by yourself
+
 ## Mailing Integration
+
 * Set up an email service provider (e.g., Gmail, SendGrid) for sending emails programmatically
 * Configure SMTP settings in web application to enable email sending - DONE
 * Create email templates for sending abbreviated chapters - DONE
 * Configure email sending by schedule
 	* Implement a scheduler (e.g. cron job, Celery) to send emails daily
+
 ## Intermediate testing
+
 * Test the web application thoroughly, including file uploads, text summarization, email sending, and scheduled tasks
 * Perform both functional and usability testing to ensure a smooth user experience
+
 ## Deploy web application to a hosting platform
+
 * Buy a domain name 
 * Choose a hosting provider for deploying web application (e.g. AWS, Heroku, DigitalOcean)
 * Configure the deployment environment and deploy application
+
 ## Monitoring and Maintenance
+
 * Implement logging and monitoring solutions to track application performance and errors
+
 ## Tasks to solve in perspective
+
 * Think about active subscription limitations for every user for not to take up too much space on server
 * Think how to effectively adapt web application to different screen sizes and devices
+
 ## Users tests
+
 * Organize for few users test of application in different stages of development
