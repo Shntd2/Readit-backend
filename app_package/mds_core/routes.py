@@ -36,4 +36,4 @@ def upload_file():
 				'email': user_email
 			})
 			return jsonify(response.json()), response.status_code
-	return render_template('upload.html')
+	return render_template('index.html')  # in past was rendering the upload.html file

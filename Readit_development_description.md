@@ -69,6 +69,7 @@
 
 * Here frontend must contain active subscriptions list
 * And Create new subscription button which should redirect to `routes.py` - page where user can upload its PDF file
+    * Implement new file uploading page (front) in `routes.py` file upload.html file is index.html now
 	* After creating users session, its email address from `models.py` must be used in backend. So it is needed to connect `personal_page.py` with `models.py` and assign users email received from users database to variable `recipient` 
 * Then uploaded PDF file will process to `pdf_summary.py`
 * `pdf_summary.py` will cut PDF to JSON chunks and send them to `ai_summarizer.py`
