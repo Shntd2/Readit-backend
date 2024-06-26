@@ -39,7 +39,7 @@ def create_app():
     CORS(app)
 
     # Register blueprints
-    app.register_blueprint(routes_app, url_prefix='routes')
+    app.register_blueprint(routes_app)
     # app.register_blueprint(config_switcher)
     # app.register_blueprint(pdf_summary)
     # app.register_blueprint(ai_summarizer)

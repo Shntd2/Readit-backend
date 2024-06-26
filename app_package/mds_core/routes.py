@@ -4,9 +4,9 @@ Defines the routes for uploading PDF files and displaying the upload form
 
 import requests
 from flask import Blueprint, render_template, request, redirect, flash, jsonify, session
-from app_package.config import DevelopmentConfig
+# from app_package.config import DevelopmentConfig
 
-routes_app = Blueprint('routes', __name__)
+routes_app = Blueprint('routes', __name__, template_folder='templates')
 
 
 def allowed_file(filename):
@@ -41,4 +41,4 @@ def upload_file():
 				'email': user_email
 			})
 			return jsonify(response.json()), response.status_code
-	return render_template('upload.html')
+	return render_template('index.html')  # implement here upload logic
