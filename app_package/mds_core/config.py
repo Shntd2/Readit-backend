@@ -17,7 +17,7 @@ class DevelopmentConfig(Config):  # intermediate state
 	TESTING = False
 	AI_API_SECRET_KEY = os.getenv('AI_API_SECRET_KEY')
 	ALLOWED_EXTENSIONS = os.getenv('ALLOWED_EXTENSIONS')
-	MAX_CONTENT_LENGTH = os.getenv('MAX_CONTENT_LENGTH')]
+	MAX_CONTENT_LENGTH = os.getenv('MAX_CONTENT_LENGTH')
 	APPLICATION_URL = os.getenv('APPLICATION_URL')
 	UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER')
 	SENDER_EMAIL = os.getenv('SENDER_EMAIL')
