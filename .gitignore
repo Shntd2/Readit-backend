@@ -1,0 +1,15 @@
+MDS/venv
+MDS/app_package/mds_core/.flaskenv
+MDS/app_package/mds_core/config.py
+MDS/app_package/mds_core/blueprints/config_switcher.py
+
+__pycache__/
+*.py[cod]
+*.log
+*.env
+
+MDS/app_package/mds_frontend/node_modules
+MDS/app_package/mds_frontend/.env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
