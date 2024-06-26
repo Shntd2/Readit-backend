@@ -3,9 +3,10 @@ This utility will send JSON chunks of uploaded PDF from MongoDB to AI API
 Is under development
 """
 
-from flask import Blueprint, request, jsonify, session
 import requests
-from app_package.mds_core.models import db, AIResponse
+from flask import Blueprint, request, jsonify, session
+
+# from app_package.mds_core.models import db, AIResponse
 
 ai_summarizer = Blueprint('ai_summarizer', __name__, url_prefix='/ai_summarizer')
 
@@ -23,10 +24,10 @@ def process_chunks():
 		payload = {'text': chunk}
 		response = requests.post(url, json=payload, headers=headers)
 		if response.status_code == 200:
-			ai_response = AIResponse(chunk_text=chunk, user_email=user_email, username=username)
-			db.session.add(ai_response)
+			# ai_response = AIResponse(chunk_text=chunk, user_email=user_email, username=username)
+			# db.session.add(ai_response)
 		else:
 			# add logging and saving error handling
 			pass
-	db.session.commit()
-	return jsonify({'message': 'Processing complete', 'email': user_email, 'username': username})
+	# db.session.commit()
+	# return jsonify({'message': 'Processing complete', 'email': user_email, 'username': username})

@@ -8,7 +8,8 @@
     "start-api": "cd mds_core && venv/Lib/flask run --no-debugger",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently \"cd .. && flask run\" \"yarn start\""
   },
   "author": "",
   "license": "ISC",

@@ -2,11 +2,12 @@
 This utility will generate a summary of the uploaded text file
 """
 
-from flask import Blueprint, request, jsonify, session
-import PyPDF2
 from io import BytesIO
-from nltk.tokenize import sent_tokenize
+
+import PyPDF2
 import requests
+from flask import Blueprint, request, jsonify, session
+from nltk.tokenize import sent_tokenize
 
 pdf_summary = Blueprint('pdf_summary', __name__, url_prefix='/pdf_summary')
 
