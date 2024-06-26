@@ -1,5 +1,5 @@
 MDS/venv
-app_package/mds_core/.flaskenv
+app_package/mds_core/.env
 app_package/mds_core/config.py
 app_package/mds_core/blueprints/config_switcher.py
 
