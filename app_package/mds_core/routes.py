@@ -41,4 +41,4 @@ def upload_file():
 				'email': user_email
 			})
 			return jsonify(response.json()), response.status_code
-	return render_template('index.html')  # implement here upload logic
+	return render_template('index.html')
