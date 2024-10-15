@@ -59,14 +59,12 @@ def test_login_failure(client, init_database):
 
 
 def test_protected_route(client, init_database):
-    # First, login to get the token
     login_response = client.post('/login', json={
         'username': 'testuser',
         'password': 'password'
     })
     access_token = json.loads(login_response.data)['access_token']
 
-    # Then, access the protected route
     response = client.get('/protected', headers={'Authorization': f'Bearer {access_token}'})
     assert response.status_code == 200
     data = json.loads(response.data)
@@ -74,14 +72,12 @@ def test_protected_route(client, init_database):
 
 
 def test_refresh_token(client, init_database):
-    # First, login to get the tokens
     login_response = client.post('/login', json={
         'username': 'testuser',
         'password': 'password'
     })
     refresh_token = json.loads(login_response.data)['refresh_token']
 
-    # Then, use the refresh token to get a new access token
     response = client.post('/refresh', headers={'Authorization': f'Bearer {refresh_token}'})
     assert response.status_code == 200
     data = json.loads(response.data)
@@ -89,18 +85,15 @@ def test_refresh_token(client, init_database):
 
 
 def test_logout(client, init_database):
-    # First, login to get the token
     login_response = client.post('/login', json={
         'username': 'testuser',
         'password': 'password'
     })
     access_token = json.loads(login_response.data)['access_token']
 
-    # Then, logout
     response = client.post('/logout', headers={'Authorization': f'Bearer {access_token}'})
     assert response.status_code == 200
 
-    # Try to access protected route after logout
     response = client.get('/protected', headers={'Authorization': f'Bearer {access_token}'})
     assert response.status_code == 401
 
