@@ -17,8 +17,8 @@ from email.mime.text import MIMEText
 
 from flask import Blueprint, jsonify
 
-from app_package.config import DevelopmentConfig
-from ..models import AIResponse
+from app_package import DevelopmentConfig
+from app_package.models.models import AIResponse
 
 logging.basicConfig(level=logging.INFO)
 email_service = Blueprint('email_service', __name__)

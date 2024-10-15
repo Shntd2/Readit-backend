@@ -1,55 +1,55 @@
-"""
-Initializes Flask application
-"""
-
-
-import logging
-from logging.handlers import RotatingFileHandler
-from flask_cors import CORS
 from flask import Flask
-from flask_compress import Compress
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_marshmallow import Marshmallow
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager
+import redis
+from dotenv import load_dotenv
+import os
+import ast
+from datetime import timedelta
 
-# Import blueprints
-# from .blueprints.ai_summarizer import ai_summarizer
-# from .blueprints.config_switcher import config_switcher
-# from .blueprints.email_service import email_service
-# from .blueprints.pdf_summary import pdf_summary
-from mds_core.routes import routes_app
 
-# Import the development configuration
-from config import DevelopmentConfig
+load_dotenv()
+
+db = SQLAlchemy()
+migrate = Migrate()
+ma = Marshmallow()
+jwt = JWTManager()
+redis_client = redis.Redis(host='127.0.0.1', port=6379, db=1, decode_responses=True)
 
 
-# Function to create the Flask app
 def create_app():
     app = Flask(__name__)
 
-    # Configure the app
-    app.config.from_object(DevelopmentConfig)
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+    app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
+    jwt_access_expires = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES'))
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(seconds=jwt_access_expires)
+    jwt_refresh_expires = int(os.getenv('JWT_REFRESH_TOKEN_EXPIRES', 604800))
+    app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(seconds=jwt_refresh_expires)
+    jwt_token_location = os.getenv('JWT_TOKEN_LOCATION', "['headers']")
+    try:
+        app.config['JWT_TOKEN_LOCATION'] = ast.literal_eval(jwt_token_location)
+    except (ValueError, SyntaxError):
+        app.config['JWT_TOKEN_LOCATION'] = ['headers']
+    app.config['JWT_COOKIE_SECURE'] = os.getenv('JWT_COOKIE_SECURE')
+    app.config['JWT_COOKIE_CSRF_PROTECT'] = os.getenv('JWT_COOKIE_CSRF_PROTECT')
+    app.config['JWT_ACCESS_COOKIE_PATH'] = os.getenv('JWT_ACCESS_COOKIE_PATH')
+    app.config['JWT_REFRESH_COOKIE_PATH'] = os.getenv('JWT_REFRESH_COOKIE_PATH')
 
-    # Configure logging
-    log_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    log_handler = RotatingFileHandler('app.log', maxBytes=10000, backupCount=1)
-    log_handler.setFormatter(log_formatter)
-    app.logger.addHandler(log_handler)
-
-    # Log the app's configuration to help with debugging
-    app.logger.info('App configuration loaded')
-
+    db.init_app(app)
+    migrate.init_app(app, db)
+    ma.init_app(app)
     CORS(app)
+    jwt.init_app(app)
 
-    # Register blueprints
-    app.register_blueprint(routes_app)
-    # app.register_blueprint(config_switcher)
-    # app.register_blueprint(pdf_summary)
-    # app.register_blueprint(ai_summarizer)
-    # app.register_blueprint(email_service)
+    from .routes import init_app as init_routes
+    init_routes(app)
 
-    Compress(app)
+    from .models import models
+
     return app
-
-
-if __name__ == '__main__':
-    app = create_app()
-    with app.app_context():
-        app.run(debug=True)
