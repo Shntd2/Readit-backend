@@ -16,13 +16,13 @@ def register():
 
     form.username.data = json_data.get('username')
     form.email.data = json_data.get('email')
-    form.password.data = json_data.get('password')
-    form.confirm_password.data = json_data.get('confirm_password')
+    form.client_hashed_password.data = json_data.get('password')
+    form.confirm_client_hashed_password.data = json_data.get('confirm_password')
 
     if form.validate():
         username = form.username.data
         email = form.email.data
-        password = form.password.data
+        client_hashed_password = form.client_hashed_password.data
 
         if User.query.filter_by(username=username).first():
             return jsonify({"error": "Username already exists"}), 400
@@ -30,8 +30,8 @@ def register():
         if User.query.filter_by(email=email).first():
             return jsonify({"error": "Email already exists"}), 400
 
-        hashed_password = generate_password_hash(password)
-        new_user = User(username=username, email=email, password=hashed_password)
+        server_hashed_password = generate_password_hash(client_hashed_password)
+        new_user = User(username=username, email=email, password=server_hashed_password)
 
         db.session.add(new_user)
         db.session.commit()
