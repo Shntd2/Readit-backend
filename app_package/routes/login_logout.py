@@ -11,9 +11,12 @@ from app_package.forms.login_logout import LoginForm, ChangePasswordForm
 from app_package import redis_client, jwt
 from datetime import timedelta
 from . import routes
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
-REVOKED_TOKEN_PREFIX = "revoked_token:"
+REVOKED_TOKEN_PREFIX = os.getenv('REVOKED_TOKEN_PREFIX')
 
 
 @routes.route('/user/login', methods=['POST'])
