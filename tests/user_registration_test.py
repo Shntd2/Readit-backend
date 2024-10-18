@@ -10,18 +10,20 @@ APPLICATION_URL = os.getenv('APPLICATION_URL')
 
 
 def hash_password(password):
-    return hashlib.sha256(password.encode()).hexdigest()
+    hash_object = hashlib.sha256(password.encode('utf-8'))
+    hex_dig = hash_object.hexdigest()
+    return hex_dig
 
 
 def test_user_registration():
     url = f"{APPLICATION_URL}/register"
 
-    plain_password = "12345678"
+    plain_password = "123456789"
     hashed_password = hash_password(plain_password)
 
     user_data = {
-        "username": "test3",
-        "email": "shant@test.com",
+        "username": "test6",
+        "email": "shant@test4.com",
         "password": hashed_password,
         "confirm_password": hashed_password
     }

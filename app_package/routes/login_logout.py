@@ -5,9 +5,9 @@ from flask_jwt_extended import (
     set_access_cookies, set_refresh_cookies,
     unset_jwt_cookies
 )
+from werkzeug.security import generate_password_hash
 from app_package.models.models import User, db
 from app_package.forms.login_logout import LoginForm, ChangePasswordForm
-from werkzeug.security import check_password_hash, generate_password_hash
 from app_package import redis_client, jwt
 from datetime import timedelta
 from . import routes
@@ -144,7 +144,9 @@ def change_password():
         if not user.check_password(form.current_client_hashed_password.data):
             return jsonify({"error": "Current password is incorrect"}), 400
 
-        user.password = form.new_client_hashed_password.data
+        new_server_hashed_password = generate_password_hash(form.new_client_hashed_password.data)
+
+        user.password = new_server_hashed_password
         db.session.commit()
 
         jti = get_jwt()["jti"]
